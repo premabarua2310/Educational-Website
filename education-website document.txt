@@ -1,0 +1,188 @@
+(npx = use any packages for one time, without downloading it)
+
+ [For terminal:]
+npx create-react-app demoapp
+cd .\demoapp\
+npm insrall bootstrap
+npm install react-router-dom
+npm start
+
+ [For App.js:]
+import React from 'react'
+import './App.css'
+
+ (add folders/files in App.js folder)
+import Header from './components/common/head/Header';
+import Home from './components/Home';
+import About from './components/about/About';
+
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <Routes>
+         <Route path='/' exact element={< Home />} />
+         <Route path='/about' exact element={< About />} />
+      </Routes>
+    </Router>
+  )
+}
+
+ [For Header.jsx:]
+import React, {useState} from "react"
+import { Link } from "react-router-dom"
+import './header.css'
+import Head from './Head'
+
+const Header = () => {
+  const [ click, setClick ] = useState(false)
+  return (
+    <>
+      <Head />
+      <header>
+        <nav className='flexSB'>
+          <ul className={ click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)} >
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/courses">All Courses</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/team">Team</Link></li>
+            <li><Link to="/pricing">Pricing</Link></li>
+            <li><Link to="/journal">Journal</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+          </ul>
+          <div className="start">
+            <div className="button">GET CERTIFICATE</div>
+          </div>
+          <button className='toggle' onClick={() => setClick(!click)}>
+            {click ? <i class="fa fa-times"></i> : <i class="fa-solid fa-bars"></i> }
+          </button>
+        </nav>
+      </header>
+    </>
+  )
+}
+
+export default Header;
+
+  [For Head.jsx:]
+import React from 'react';
+
+const Head = () => {
+  return (
+   <>
+      <section className='head'>
+        <div className='container flexSB'>
+            <div className="logo">
+                <h1>ACADEMIC</h1>
+                <span>ONLINE EDUCATION & LEARNING</span>
+            </div>
+
+            <div className="social">
+            <i class="fa-brands fa-facebook icon"></i>
+            <i class="fa-brands fa-instagram icon"></i>
+            <i class="fa-brands fa-twitter icon"></i>
+            <i class="fa-brands fa-youtube icon"></i>
+            </div>
+        </div>
+      </section>
+      </>
+  )
+}
+
+export default Head;
+
+ [For Home.jsx:]
+import React from 'react';
+import Hero from './home/Hero';
+
+const Home = () => {
+  return (
+    <>
+      <Hero />
+    </>
+  );
+}
+
+export default Home;
+
+ [For Hero.jsx:]
+import React from 'react';
+import Title from '../common/title/Title';
+import "./hero.css";
+
+const Hero = () => {
+  return (
+    <>
+    <section className='hero'>
+        <div className="container">
+            <div className="row">
+                <Title subtitle='WELCOME TO ACADEMIC' title="Best Online Education" />
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <div className="button">
+                <button className='primary-btn'>
+                    GET STARTED NOW <i class="fa-solid fa-right-long"></i>
+                </button>
+                <button>
+                   VIEW COURSES <i class="fa-solid fa-right-long"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </section>
+    <div className="margin"></div>
+    </>
+  );
+}
+
+export default Hero;
+
+ [For Title.jsx:]
+import React from 'react';
+
+const Title = ({subtitle, title}) => {
+  return (
+    <div>
+      <div id='heading'>
+        <h3>{subtitle}</h3>
+        <h1>{title}</h1>
+      </div>
+    </div>
+  )
+}
+
+export default Title;
+
+ [For Back.jsx:]
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
+const Back = ( { title } ) => {
+    const location = useLocation()
+  return (
+    <div>
+      <section className='back'>
+        <h2> Home / {location.pathname.split("/")[1]} </h2>
+        <h1> {title} </h1>
+      </section>
+    </div>
+  )
+}
+
+export default Back;
+
+ [For About.jsx:]
+import React from 'react';
+import Back from '../common/back/Back';
+
+const About = () => {
+  return (
+    <>
+      <Back title= "About Us" />
+    </>
+  )
+}
+
+export default About;
+ 
